@@ -267,7 +267,143 @@ public:
 
 int main(void) {
   Plain piano;
+  Object terra;
+  terra.radius = 6371 KM;
+  terra.mass = 5.972e24;
+  terra.pos.x = 0;
+  terra.pos.y = 0;
+  terra.name = "earth";
+  piano.addElement(terra);
+  // ===== ORBITA CIRCOLARE (ATTIVO) =====
+  {
+    Object satellite;
+    satellite.radius = 1000;
+    satellite.mass = 500;
+    satellite.name = "circular";
 
+    double r = terra.radius + 400 KM;
+
+    satellite.pos.x = r;
+    satellite.pos.y = 0;
+
+    double v = sqrt(G_CONSTANT * terra.mass / r);
+
+    satellite.speed.x = 0;
+    satellite.speed.y = v;
+
+    piano.addElement(satellite);
+  }
+
+  // ===== CADUTA =====
+  /*
+  {
+    Object satellite;
+    satellite.radius = 1000;
+    satellite.mass = 500;
+    satellite.name = "fall";
+
+    double r = terra.radius + 400 * KM;
+
+    satellite.pos.x = r;
+    satellite.pos.y = 0;
+
+    double v = 0.5 * sqrt(G_CONSTANT * terra.mass / r);
+
+    satellite.speed.x = 0;
+    satellite.speed.y = v;
+
+    piano.addElement(satellite);
+  }
+  */
+
+  // ===== ORBITA ELLITTICA =====
+  /*
+  {
+    Object satellite;
+    satellite.radius = 1000;
+    satellite.mass = 500;
+    satellite.name = "elliptic";
+
+    double r = terra.radius + 400 * KM;
+
+    satellite.pos.x = r;
+    satellite.pos.y = 0;
+
+    double v = 0.85 * sqrt(G_CONSTANT * terra.mass / r);
+
+    satellite.speed.x = 0;
+    satellite.speed.y = v;
+
+    piano.addElement(satellite);
+  }
+  */
+
+  // ===== VELOCITÀ DI FUGA =====
+  /*
+  {
+    Object satellite;
+    satellite.radius = 1000;
+    satellite.mass = 500;
+    satellite.name = "escape";
+
+    double r = terra.radius + 400 * KM;
+
+    satellite.pos.x = r;
+    satellite.pos.y = 0;
+
+    double v = sqrt(2 * G_CONSTANT * terra.mass / r);
+
+    satellite.speed.x = 0;
+    satellite.speed.y = v;
+
+    piano.addElement(satellite);
+  }
+  */
+
+  // ===== ORBITA INCLINATA =====
+  /*
+  {
+    Object satellite;
+    satellite.radius = 1000;
+    satellite.mass = 500;
+    satellite.name = "angled";
+
+    double r = terra.radius + 400 * KM;
+
+    satellite.pos.x = r;
+    satellite.pos.y = 0;
+
+    double v = sqrt(G_CONSTANT * terra.mass / r);
+
+    satellite.speed.x = v * 0.3;
+    satellite.speed.y = v * 0.95;
+
+    piano.addElement(satellite);
+  }
+  */
+
+  // ===== TEST DEBUG (instabilità) =====
+  /*
+  {
+    Object satellite;
+    satellite.radius = 1000;
+    satellite.mass = 500;
+    satellite.name = "debug";
+
+    double r = terra.radius + 400 * KM;
+
+    satellite.pos.x = r * 1.1; // volutamente sbagliato
+
+    satellite.pos.y = 0;
+
+    double v = sqrt(G_CONSTANT * terra.mass / r);
+
+    satellite.speed.x = 0;
+    satellite.speed.y = v;
+
+    piano.addElement(satellite);
+  }
+  */
   Game game("gravity simulator");
   game.plain = &piano;
   while (!WindowShouldClose()) {
